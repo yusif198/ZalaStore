@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="az">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f5f1">
+  <meta name="description" content="ZalaStore geyim mağazası">
+  <title>ZalaStore — Qeydiyyat</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js?v=product-pages-1" defer></script>
+</head>
+<body>
+  <div id="toast-region" class="toast-region" aria-live="polite"></div>
+  <header class="topbar">
+    <a class="brand" href="/index.html" data-view="store" aria-label="ZalaStore ana səhifə">
+      <span class="brand-mark">Z</span>
+      <span>Zala<span class="brand-light">Store</span></span>
+    </a>
+    <nav id="main-nav" class="main-nav" aria-label="Əsas menyu">
+      <a class="nav-link active" href="/index.html" data-view="store">Mağaza</a>
+      <a class="nav-link signed-in-only" href="/orders.html" data-view="orders">Sifarişlərim</a>
+      <a class="nav-link customer-only" href="/profile.html" data-view="profile">Hesabım</a>
+      <a class="nav-link manager-only" href="/inventory.html" data-view="inventory">Məhsullar və stok</a>
+      <a class="nav-link admin-only" href="/dashboard.html" data-view="dashboard">İdarəetmə paneli</a>
+      <a class="nav-link manager-only" href="/sales.html" data-view="sales">Satışlar</a>
+      <a class="nav-link admin-only" href="/reports.html" data-view="reports">Hesabatlar</a>
+      <a class="nav-link admin-only" href="/users.html" data-view="users">İstifadəçilər</a>
+    </nav>
+    <div class="account-actions">
+      <a id="cart-open" class="cart-account-button customer-only" href="/cart.html" data-view="cart" aria-label="Səbətə keç">
+        Səbət <span id="cart-count" class="count-badge">0</span>
+      </a>
+      <span id="user-chip" class="user-chip hidden"></span>
+      <a id="login-open" class="button button-quiet" href="/login">Daxil ol</a>
+      <button id="logout-button" class="button button-dark hidden">Çıxış</button>
+      <button id="theme-toggle" class="theme-toggle" type="button">☾</button>
+    </div>
+  </header>
+
+  <main data-page="auth" data-auth-mode="register">
+<section id="view-auth" class="view active auth-view">
+      <div class="auth-art">
+        <span class="brand brand-invert"><span class="brand-mark">Z</span><span>Zala<span class="brand-light">Store</span></span></span>
+        <div class="auth-art-copy"><span class="eyebrow">SƏNİN TƏRZİN, SƏNİN HEKAYƏN</span><h2>Gözəl görün.<br><span>Özün ol.</span></h2></div>
+        <div class="auth-shape"></div>
+      </div>
+      <div class="auth-form-side">
+        <a id="auth-back" class="back-link" href="/index.html" data-view="store">← Mağazaya qayıt</a>
+        <div class="auth-form-content">
+          <span class="eyebrow">ZALASTORE HESABI</span>
+          <h1 id="auth-title">Yenidən xoş gəldin</h1>
+          <p id="auth-subtitle">Davam etmək üçün hesabına daxil ol.</p>
+          <div id="auth-toggle" class="auth-toggle"><a href="/login" data-auth-mode="login">Daxil ol</a><a href="/register" data-auth-mode="register">Qeydiyyat</a></div>
+          <form id="auth-form">
+            <label id="auth-name-wrap" class="hidden">Ad və soyad<input name="name" maxlength="80" autocomplete="name"></label>
+            <label>E-poçt<input name="email" type="email" maxlength="120" required autocomplete="email" placeholder="ad@numune.az"></label>
+            <label>Şifrə<input name="password" type="password" minlength="6" required autocomplete="current-password" placeholder="Ən azı 6 simvol"></label>
+            <p id="auth-error" class="form-error hidden" role="alert"></p>
+            <button id="auth-submit" class="button button-dark button-full" type="submit">Daxil ol <span aria-hidden="true">→</span></button>
+          </form>
+          <div id="demo-credentials" class="demo-credentials"><strong>Demo admin hesabı</strong><br>admin@zalastore.az · admin123</div>
+          <p class="auth-disclaimer">Demo versiya · məlumatlar yalnız bu brauzerdə saxlanılır.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <a class="brand" href="/index.html" data-view="store"><span class="brand-mark">Z</span><span>Zala<span class="brand-light">Store</span></span></a>
+    <span>Geyimində özünü tap. <span class="footer-dot">●</span> Bakı, Azərbaycan</span>
+    <span>© <span id="footer-year"></span> ZalaStore</span>
+  </footer>
+</body>
+</html>

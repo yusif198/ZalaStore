@@ -32,38 +32,11 @@
 
   const byId = (id) => document.getElementById(id);
   async function apiRequest(path, method, body) {
-    let response;
-    try {
-      response = await fetch(path, {
-        method,
-        headers: { "Content-Type": "application/json", "Accept": "application/json" },
-        body: JSON.stringify(body)
-      });
-    } catch (error) {
-      throw new Error("Spring Boot serverinə qoşulmaq mümkün olmadı. Serverin işlədiyini yoxla.");
-    }
-    const payload = await response.json().catch(() => ({}));
-    if (!response.ok) {
-      throw new Error(payload.detail || payload.message || payload.title || `Sorğu uğursuz oldu (${response.status}).`);
-    }
-    return payload;
+    return window.StoreService.request(path, method, body);
   }
   async function apiCsvRequest(path, body) {
-    let response;
-    try {
-      response = await fetch(path, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "Accept": "text/csv" },
-        body: JSON.stringify(body)
-      });
-    } catch (error) {
-      throw new Error("Spring Boot serverinə qoşulmaq mümkün olmadı. Serverin işlədiyini yoxla.");
-    }
-    if (!response.ok) {
-      const payload = await response.json().catch(() => ({}));
-      throw new Error(payload.detail || payload.message || payload.title || `Sorğu uğursuz oldu (${response.status}).`);
-    }
-    return response.text();
+    if (path !== "/api/sales/export") throw new Error(`CSV əməliyyatı dəstəklənmir: ${path}`);
+    return window.StoreService.csv(body);
   }
   const escapeHtml = (value) => String(value ?? "").replace(/[&<>"']/g, (character) => ({
     "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"

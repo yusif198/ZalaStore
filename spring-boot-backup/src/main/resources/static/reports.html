@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="az">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f5f1">
+  <meta name="description" content="ZalaStore geyim mağazası">
+  <title>ZalaStore — Hesabatlar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js?v=product-pages-1" defer></script>
+</head>
+<body>
+  <div id="toast-region" class="toast-region" aria-live="polite"></div>
+  <header class="topbar">
+    <a class="brand" href="/index.html" data-view="store" aria-label="ZalaStore ana səhifə">
+      <span class="brand-mark">Z</span>
+      <span>Zala<span class="brand-light">Store</span></span>
+    </a>
+    <nav id="main-nav" class="main-nav" aria-label="Əsas menyu">
+      <a class="nav-link active" href="/index.html" data-view="store">Mağaza</a>
+      <a class="nav-link signed-in-only" href="/orders.html" data-view="orders">Sifarişlərim</a>
+      <a class="nav-link customer-only" href="/profile.html" data-view="profile">Hesabım</a>
+      <a class="nav-link manager-only" href="/inventory.html" data-view="inventory">Məhsullar və stok</a>
+      <a class="nav-link admin-only" href="/dashboard.html" data-view="dashboard">İdarəetmə paneli</a>
+      <a class="nav-link manager-only" href="/sales.html" data-view="sales">Satışlar</a>
+      <a class="nav-link admin-only" href="/reports.html" data-view="reports">Hesabatlar</a>
+      <a class="nav-link admin-only" href="/users.html" data-view="users">İstifadəçilər</a>
+    </nav>
+    <div class="account-actions">
+      <a id="cart-open" class="cart-account-button customer-only" href="/cart.html" data-view="cart" aria-label="Səbətə keç">
+        Səbət <span id="cart-count" class="count-badge">0</span>
+      </a>
+      <span id="user-chip" class="user-chip hidden"></span>
+      <a id="login-open" class="button button-quiet" href="/login">Daxil ol</a>
+      <button id="logout-button" class="button button-dark hidden">Çıxış</button>
+      <button id="theme-toggle" class="theme-toggle" type="button">☾</button>
+    </div>
+  </header>
+
+  <main data-page="reports">
+<section id="view-reports" class="view active page-view">
+      <div class="page-heading">
+        <span class="eyebrow">İDARƏETMƏ · ANALİTİKA</span>
+        <h1>Satış hesabatları</h1>
+        <p>Satış nəticələrini seçilmiş dövr üzrə təhlil et.</p>
+      </div>
+      <div class="report-toolbar">
+        <div id="report-period" class="segmented-control" role="group" aria-label="Hesabat dövrü">
+          <button class="active" data-period="day">Günlük</button><button data-period="week">Həftəlik</button><button data-period="month">Aylıq</button>
+        </div>
+        <label class="date-control">Tarix seç<input id="report-date" type="date"></label>
+        <button id="report-export" class="button button-outline">CSV ixrac et ↓</button>
+      </div>
+      <div id="report-stats" class="stats-row stats-large"></div>
+      <div class="report-grid">
+        <div class="chart-panel"><div class="panel-title-row"><div><span class="eyebrow">MƏHSUL REYTİNQİ</span><h2>Ən çox satılanlar</h2></div><span class="chart-label">TOP 5</span></div><div id="top-products-chart" class="bar-chart"></div></div>
+        <div class="report-sales-panel"><div class="panel-title-row"><div><span class="eyebrow">DÖVR ÜZRƏ</span><h2>Satış detalları</h2></div></div><div id="report-sales"></div></div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <a class="brand" href="/index.html" data-view="store"><span class="brand-mark">Z</span><span>Zala<span class="brand-light">Store</span></span></a>
+    <span>Geyimində özünü tap. <span class="footer-dot">●</span> Bakı, Azərbaycan</span>
+    <span>© <span id="footer-year"></span> ZalaStore</span>
+  </footer>
+</body>
+</html>

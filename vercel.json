@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "outputDirectory": "src/main/resources/static",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/store", "destination": "/index.html" },
+    { "source": "/login", "destination": "/login.html" },
+    { "source": "/register", "destination": "/register.html" },
+    { "source": "/cart", "destination": "/cart.html" },
+    { "source": "/orders", "destination": "/orders.html" },
+    { "source": "/profile", "destination": "/profile.html" },
+    { "source": "/inventory", "destination": "/inventory.html" },
+    { "source": "/dashboard", "destination": "/dashboard.html" },
+    { "source": "/sales", "destination": "/sales.html" },
+    { "source": "/reports", "destination": "/reports.html" },
+    { "source": "/users", "destination": "/users.html" },
+    { "source": "/products/:id", "destination": "/product.html?id=:id" }
+  ]
+}
