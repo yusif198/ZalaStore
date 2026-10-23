@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: zalastore
+
+server:
+  port: ${PORT:8080}
