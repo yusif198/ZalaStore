@@ -1,6 +1,7 @@
 {
   "version": 2,
-  "outputDirectory": "src/main/resources/static",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [

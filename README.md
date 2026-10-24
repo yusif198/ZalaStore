@@ -4,7 +4,7 @@ ZalaStore is a static JavaScript clothing-store demo configured for Vercel. The 
 
 ## Deploy to Vercel
 
-Import this project in Vercel and deploy from the repository root. `vercel.json` publishes `src/main/resources/static` as the static output and rewrites friendly page URLs and product detail URLs.
+Import this project in Vercel and deploy from the repository root. Vercel runs `npm run build`, which copies the storefront into `dist/`; `vercel.json` publishes only that directory as static output and rewrites friendly page URLs and product detail URLs. Spring sources and the preserved Spring Boot backup are excluded from the Vercel deployment by `.vercelignore`.
 
 The app uses browser Web Crypto for PBKDF2 password hashes. Vercel's HTTPS deployment provides the secure context required by Web Crypto.
 
