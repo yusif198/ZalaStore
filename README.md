@@ -4,13 +4,13 @@ ZalaStore is a static JavaScript clothing-store demo configured for Vercel. The 
 
 ## Deploy to Vercel
 
-Import this project in Vercel and deploy from the repository root (`.`). The Vercel Framework Preset should be **Other**; `vercel.json` also pins it to Other so Vercel does not interpret browser scripts as server functions. Vercel runs `npm run build`, which copies the storefront into `dist/`; only that directory is deployed as static output. Spring sources and the preserved Spring Boot backup are excluded from the Vercel deployment by `.vercelignore`.
+Import this project in Vercel and deploy from the repository root (`.`). The Vercel Framework Preset should be **Other**; `vercel.json` also pins it to Other so Vercel does not interpret browser scripts as server functions. Vercel runs `npm run build`, which copies the storefront into `dist/` and creates static `/products/{id}` pages for the built-in catalog; only that directory is deployed as static output. Product links for items added later use `/product?id={id}` so they do not depend on server rewrites. Spring sources and the preserved Spring Boot backup are excluded from the Vercel deployment by `.vercelignore`.
 
 The app uses browser Web Crypto for PBKDF2 password hashes. Vercel's HTTPS deployment provides the secure context required by Web Crypto.
 
 ## Run locally
 
-Serve `src/main/resources/static` as a static directory using any local web server, then open its `index.html`. For product details, open `product.html?id=p-001`; Vercel additionally rewrites `/products/p-001` to that page.
+Serve `src/main/resources/static` as a static directory using any local web server, then open its `index.html`. For product details, open `product.html?id=p-001`. The Vercel build also generates direct `/products/p-001` pages for the built-in catalog.
 
 ## Demo account
 

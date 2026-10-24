@@ -1,4 +1,4 @@
-import { cpSync, existsSync, mkdirSync, rmSync } from "node:fs";
+import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 const root = process.cwd();
@@ -13,4 +13,12 @@ if (!existsSync(resolve(source, "index.html")) || !existsSync(resolve(source, "a
 rmSync(output, { recursive: true, force: true });
 mkdirSync(output, { recursive: true });
 cpSync(source, output, { recursive: true });
+const productTemplate = readFileSync(resolve(source, "product.html"), "utf8");
+const productIds = [...readFileSync(resolve(source, "store-service.js"), "utf8").matchAll(/\{ id: "(p-\d{3})"/g)]
+  .map(([, productId]) => productId);
+const productRoutes = resolve(output, "products");
+mkdirSync(productRoutes, { recursive: true });
+productIds.forEach((productId) => {
+  writeFileSync(resolve(productRoutes, `${productId}.html`), productTemplate);
+});
 console.log(`Built static storefront into ${output}`);

@@ -42,6 +42,8 @@
     "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
   })[character]);
   const formatMoney = (amount) => money.format(Number(amount) || 0);
+  const currentProductId = () => new URLSearchParams(window.location.search).get("id") ||
+    window.location.pathname.match(/^\/products\/([^/]+)\/?$/)?.[1];
   const localDateValue = (date) => {
     const local = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
     return local.toISOString().slice(0, 10);
@@ -234,7 +236,7 @@
           <div class="catalog-category-heading"><h3>${escapeHtml(category)}</h3><span>${productsByCategory.get(category).length} məhsul</span></div>
           <div class="product-grid">${productsByCategory.get(category).map((product) => `
             <article class="product-card" style="--product-soft:${safeColor(product.color)}22">
-              <a class="product-card-link" href="/products/${encodeURIComponent(product.id)}" aria-label="${escapeHtml(product.name)} məhsulunun detallarına bax">
+              <a class="product-card-link" href="/product?id=${encodeURIComponent(product.id)}" aria-label="${escapeHtml(product.name)} məhsulunun detallarına bax">
                 <div class="card-image">${productImage(product)}${lowStockProductIds.has(product.id) ? stockLabel(product) : ""}</div>
                 <div class="card-info"><span class="product-category">${escapeHtml(product.category)}</span><h3>${escapeHtml(product.name)}</h3></div>
               </a>
@@ -244,7 +246,7 @@
   }
 
   async function renderProductDetail() {
-    const productId = new URLSearchParams(window.location.search).get("id");
+    const productId = currentProductId();
     const product = database.products.find((item) => item.id === productId);
     const container = byId("product-detail");
     lowStockProductIds = new Set(database.products.filter((item) => Number(item.stock) < 5).map((item) => item.id));
@@ -994,7 +996,7 @@
       const input = byId("product-detail-qty");
       if (!input) return;
       input.value = String(Math.max(1, Math.min(Number(input.max), Number(input.value || 1) + Number(qtyStep.dataset.qtyStep))));
-      refreshProductDetailTotal(database.products.find((item) => item.id === new URLSearchParams(window.location.search).get("id")));
+      refreshProductDetailTotal(database.products.find((item) => item.id === currentProductId()));
       return;
     }
     const cartStep = event.target.closest("[data-cart-step]");
@@ -1098,7 +1100,7 @@
     bind("product-search", "input", renderStore);
     bind("product-detail", "input", (event) => {
       if (event.target.id !== "product-detail-qty") return;
-      refreshProductDetailTotal(database.products.find((item) => item.id === new URLSearchParams(window.location.search).get("id")));
+      refreshProductDetailTotal(database.products.find((item) => item.id === currentProductId()));
     });
     bind("auth-form", "submit", (event) => {
       event.preventDefault();
