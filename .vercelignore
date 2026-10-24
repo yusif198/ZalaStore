@@ -2,7 +2,6 @@
 .idea
 .mvn
 target
-dist
 spring-boot-backup
 src/main/java
 src/test
