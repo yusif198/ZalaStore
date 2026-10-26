@@ -1,36 +1,34 @@
 # ZalaStore
 
-ZalaStore is a static JavaScript clothing-store demo configured for Vercel. The browser runs the store business rules and saves products, accounts, carts, stock, and sales in `localStorage`; the application makes no Spring Boot or network API calls.
+ZalaStore, Vercel üçün konfiqurasiya edilmiş, geyim mağazası simulyasiyası rolunu oynayan statik JavaScript tətbiqidir. Mağazanın iş məntiqi birbaşa brauzerdə icra olunur; məhsullar, istifadəçi hesabları, səbətlər, anbar ehtiyatları və satış məlumatları brauzerin `localStorage` yaddaşında saxlanılır. Tətbiq heç bir Spring Boot və ya şəbəkə API sorğusu həyata keçirmir.
 
-## Deploy to Vercel
+## Vercel-də yerləşdirmə (Deploy)
 
-Import this project in Vercel and deploy from the repository root (`.`). The Vercel Framework Preset should be **Other**; `vercel.json` also pins it to Other so Vercel does not interpret browser scripts as server functions. Vercel runs `npm run build`, which copies the storefront into `dist/` and creates static `/products/{id}` pages for the built-in catalog; only that directory is deployed as static output. Product links for items added later use `/product?id={id}` so they do not depend on server rewrites. Spring sources and the preserved Spring Boot backup are excluded from the Vercel deployment by `.vercelignore`.
+Bu layihəni Vercel-ə idxal edin və repozitoriyanın kök qovluğundan (`.`) yerləşdirin. Vercel-də "Framework Preset" (çərçivə növü) olaraq **Other** (Digər) seçilməlidir; `vercel.json` faylı da bu parametri "Other" olaraq təyin edir ki, Vercel brauzer skriptlərini server funksiyaları kimi qəbul etməsin. Vercel `npm run build` əmrini icra edərək mağaza interfeysini `dist/` qovluğuna köçürür və daxili kataloq üçün statik `/products/{id}` səhifələri yaradır; yalnız bu qovluq statik məzmun kimi yerləşdirilir. Sonradan əlavə edilən məhsullar üçün keçidlər `/product?id={id}` formatında olur ki, bu da server tərəfindəki URL yönləndirmələrindən (rewrites) asılılığı aradan qaldırır. Spring mənbə kodları və Spring Boot ehtiyat nüsxələri `.vercelignore` faylı vasitəsilə Vercel-ə yerləşdirilən fayllar siyahısından xaric edilir.
 
-The app uses browser Web Crypto for PBKDF2 password hashes. Vercel's HTTPS deployment provides the secure context required by Web Crypto.
+Tətbiq, PBKDF2 parolu heşləməsi (hash) üçün brauzerin "Web Crypto" API-sindən istifadə edir. Vercel-in HTTPS mühiti, "Web Crypto"nun tələb etdiyi təhlükəsiz iş mühitini təmin edir.
 
-## Run locally
+## Yerli mühitdə işə salma
 
-Serve `src/main/resources/static` as a static directory using any local web server, then open its `index.html`. For product details, open `product.html?id=p-001`. The Vercel build also generates direct `/products/p-001` pages for the built-in catalog.
+`src/main/resources/static` qovluğunu istənilən yerli veb-server vasitəsilə statik məzmun kimi təqdim edin və sonra `index.html` faylını açın. Məhsul təfərrüatlarını görmək üçün `product.html?id=p-001` səhifəsinə daxil olun. Vercel-dəki "build" prosesi, daxili kataloq üçün birbaşa `/products/p-001` ünvanlı səhifələr də yaradır.
 
-## Demo account
+## Demo hesablar
 
 - Admin: `admin@zalastore.az` / `admin123`
-- Customers can register, edit their profile, browse products, add items to their cart, and complete demo orders.
-- Admins can manage products and customers, create staff accounts, view sales, and export reports.
+- Müştərilər qeydiyyatdan keçə, profillərini redaktə edə, məhsullara baxa, səbətə məhsul əlavə edə və demo sifarişlər yerləşdirə bilərlər.
+- Adminlər məhsulları və müştəriləri idarə edə, işçi hesabları yarada, satışlara baxa və hesabatları ixrac edə bilərlər. ## JavaScript biznes məntiqi
 
-## JavaScript business logic
+`store-service.js` əvvəlki Spring xidmət qaydalarını ehtiva edir: validasiya, rol əsaslı səhifə girişi, kataloq axtarışı, stok yoxlamaları və yeniləmələri, hesab/profil əməliyyatları, səbət cəmi, ödəmə, inventar, satış filtri, hesabatlar, ilk beş məhsul sıralaması və CSV ixracı. `app.js` səhifə renderini, naviqasiyanı, brauzer yaddaşını və istifadəçi qarşılıqlı təsirini idarə edir.
 
-`store-service.js` contains the former Spring service rules: validation, role-based page access, catalog search, stock checks and updates, account/profile operations, cart totals, checkout, inventory, sales filtering, reports, top-five product ranking, and CSV export. `app.js` handles page rendering, navigation, browser storage, and user interaction.
+## Qorunan Spring Boot versiyası
 
-## Preserved Spring Boot version
-
-The Spring Boot/Maven project as it existed before this migration is copied to `spring-boot-backup/`. It can be run independently from that folder with:
+Bu miqrasiya `spring-boot-backup/`-yə kopyalanmadan əvvəl mövcud olduğu kimi Spring Boot/Maven layihəsi. Bu qovluqdan müstəqil olaraq aşağıdakılarla işlədilə bilər:
 
 ```powershell
 cd spring-boot-backup
-.\mvnw.cmd spring-boot:run
+\mvnw.cmd spring-boot:run
 ```
 
-## Limitations
+## Məhdudiyyətlər
 
-This Vercel build is a client-side demo, not a trusted production backend. `localStorage` is editable by its user and isolated to one browser; accounts, role claims, inventory, and sales do not sync across devices. Client-side password hashing and role checks do not establish server-side identity or authorization. Do not use real customer information, passwords, payments, or shared inventory without adding a trusted serverless API and database.
+Bu Vercel quruluşu etibarlı istehsal arxa tərəfi deyil, müştəri tərəfindəki demodur. `localStorage` istifadəçisi tərəfindən redaktə edilə bilər və bir brauzerə təcrid olunmuşdur; hesablar, rol iddiaları, inventar və satışlar cihazlar arasında sinxronizasiya olunmur. Klient tərəfindəki parol heşləməsi və rol yoxlamaları server tərəfindəki identifikasiyanı və ya avtorizasiyanı müəyyən etmir. Etibarlı serversiz API və verilənlər bazası əlavə etmədən real müştəri məlumatlarından, parollardan, ödənişlərdən və ya paylaşılan inventardan istifadə etməyin.
