@@ -20,15 +20,6 @@ Tətbiq, PBKDF2 parolu heşləməsi (hash) üçün brauzerin "Web Crypto" API-si
 
 `store-service.js` əvvəlki Spring xidmət qaydalarını ehtiva edir: validasiya, rol əsaslı səhifə girişi, kataloq axtarışı, stok yoxlamaları və yeniləmələri, hesab/profil əməliyyatları, səbət cəmi, ödəmə, inventar, satış filtri, hesabatlar, ilk beş məhsul sıralaması və CSV ixracı. `app.js` səhifə renderini, naviqasiyanı, brauzer yaddaşını və istifadəçi qarşılıqlı təsirini idarə edir.
 
-## Qorunan Spring Boot versiyası
-
-Bu miqrasiya `spring-boot-backup/`-yə kopyalanmadan əvvəl mövcud olduğu kimi Spring Boot/Maven layihəsi. Bu qovluqdan müstəqil olaraq aşağıdakılarla işlədilə bilər:
-
-```powershell
-cd spring-boot-backup
-\mvnw.cmd spring-boot:run
-```
-
 ## Məhdudiyyətlər
 
 Bu Vercel quruluşu etibarlı istehsal arxa tərəfi deyil, müştəri tərəfindəki demodur. `localStorage` istifadəçisi tərəfindən redaktə edilə bilər və bir brauzerə təcrid olunmuşdur; hesablar, rol iddiaları, inventar və satışlar cihazlar arasında sinxronizasiya olunmur. Klient tərəfindəki parol heşləməsi və rol yoxlamaları server tərəfindəki identifikasiyanı və ya avtorizasiyanı müəyyən etmir. Etibarlı serversiz API və verilənlər bazası əlavə etmədən real müştəri məlumatlarından, parollardan, ödənişlərdən və ya paylaşılan inventardan istifadə etməyin.

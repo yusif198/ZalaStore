@@ -281,6 +281,11 @@ td strong { color: var(--ink); }
 .report-sale strong { display: block; margin-bottom: 5px; font-size: 11px; }
 .report-sale span { color: var(--muted); font-size: 9px; }
 .report-sale b { float: right; color: var(--ink); font-size: 11px; }
+#dashboard-recent-sales { display: grid; gap: 10px; margin-top: 16px; }
+.dashboard-sale-card { padding: 14px 15px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); }
+.dashboard-sale-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+.dashboard-sale-heading strong, .dashboard-sale-heading b { font-size: 11px; }
+.dashboard-sale-card p { margin: 7px 0 0; color: var(--muted); font-size: 10px; line-height: 1.5; }
 
 .store-promo-bar { min-height: 30px; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 5px 16px; color: #fff; background: #20211f; font-size: 9px; letter-spacing: .35px; text-align: center; }
 .storefront-page .topbar { min-height: 68px; padding-inline: clamp(20px, 5vw, 76px); background: rgba(255,255,255,.97); border-bottom-color: #ecece9; }

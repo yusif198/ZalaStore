@@ -18,8 +18,27 @@
     product: "product.html"
   };
   const money = new Intl.NumberFormat("az-AZ", { style: "currency", currency: "AZN" });
-  const dateTime = new Intl.DateTimeFormat("az-AZ", { dateStyle: "medium", timeStyle: "short" });
-  const dateOnly = new Intl.DateTimeFormat("az-AZ", { dateStyle: "medium" });
+  const dateTime = new Intl.DateTimeFormat("az-Latn-AZ-u-nu-latn", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23"
+  });
+  const dateOnly = new Intl.DateTimeFormat("az-Latn-AZ-u-nu-latn", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric"
+  });
+  const formatDateTime = (date) => {
+    const parts = Object.fromEntries(dateTime.formatToParts(date).map(({ type, value }) => [type, value]));
+    return `${parts.day}.${parts.month}.${parts.year} ${parts.hour}:${parts.minute}`;
+  };
+  const formatDate = (date) => {
+    const parts = Object.fromEntries(dateOnly.formatToParts(date).map(({ type, value }) => [type, value]));
+    return `${parts.day}.${parts.month}.${parts.year}`;
+  };
   let database;
   let currentView = document.querySelector("main")?.dataset.page || "store";
   let authMode = "login";
@@ -493,7 +512,7 @@
       return;
     }
     container.innerHTML = sales.map((sale) => `
-      <article class="order-card"><div class="order-head"><strong>${escapeHtml(sale.id)}</strong><span>${dateTime.format(new Date(sale.createdAt))}</span></div>
+      <article class="order-card"><div class="order-head"><strong>${escapeHtml(sale.id)}</strong><span>${formatDateTime(new Date(sale.createdAt))}</span></div>
       <div class="order-items">${sale.items.map((item) => `${escapeHtml(item.name)} × ${Number(item.quantity)} — ${formatMoney(item.lineTotal)}`).join("<br>")}</div>
       <div class="order-total">Yekun · ${formatMoney(sale.total)}</div></article>`).join("");
   }
@@ -715,7 +734,7 @@
         ? data.lowStock.map((product) => `<div class="report-sale"><strong>${escapeHtml(product.name)} <b>${Number(product.stock)} əd.</b></strong><span>${escapeHtml(product.sku)} · ${escapeHtml(product.category)}</span></div>`).join("")
         : `<div class="empty-state">Azalan stokda məhsul yoxdur.</div>`;
       byId("dashboard-recent-sales").innerHTML = data.recentSales.length
-        ? data.recentSales.map((sale) => `<div class="report-sale"><strong>${escapeHtml(sale.id)} <b>${formatMoney(sale.total)}</b></strong><span>${dateTime.format(new Date(sale.createdAt))} · ${escapeHtml(sale.customerName)} · ${sale.items.reduce((sum, item) => sum + Number(item.quantity), 0)} ədəd</span></div>`).join("")
+        ? data.recentSales.map((sale) => `<article class="dashboard-sale-card"><div class="dashboard-sale-heading"><strong>${escapeHtml(sale.id)}</strong><b>${formatMoney(sale.total)}</b></div><p>${formatDateTime(new Date(sale.createdAt))} · ${escapeHtml(sale.customerName)} · ${sale.items.reduce((sum, item) => sum + Number(item.quantity), 0)} ədəd</p></article>`).join("")
         : `<div class="empty-state">Hələ satış qeydə alınmayıb.</div>`;
     } catch (error) {
       byId("dashboard-stats").innerHTML = `<div class="notice notice-warning">${escapeHtml(error.message)}</div>`;
@@ -747,7 +766,7 @@
       }
       rows.innerHTML = result.sales.map((sale) => `
         <tr>
-          <td><strong>${escapeHtml(sale.id)}</strong></td><td>${dateTime.format(new Date(sale.createdAt))}</td>
+          <td><strong>${escapeHtml(sale.id)}</strong></td><td>${formatDateTime(new Date(sale.createdAt))}</td>
           <td>${escapeHtml(sale.customerName)}<br><span style="color:#9a9c94">${escapeHtml(sale.customerEmail)}</span></td>
           <td>${sale.items.reduce((sum, item) => sum + Number(item.quantity), 0)}</td><td><strong>${formatMoney(sale.total)}</strong></td>
           <td><button class="small-button" data-sale-detail="${escapeHtml(sale.id)}">Detallara bax</button></td>
@@ -776,7 +795,7 @@
       renderTopProducts(chart, report.topProducts);
     const detail = byId("report-sales");
       detail.innerHTML = report.sales.length ? report.sales.map((sale) => `
-      <div class="report-sale"><strong>${escapeHtml(sale.id)} <b>${formatMoney(sale.total)}</b></strong><span>${dateTime.format(new Date(sale.createdAt))} · ${escapeHtml(sale.customerName)} · ${sale.items.length} məhsul növü</span></div>`).join("") : `<div class="empty-state">Seçilmiş dövrdə satış yoxdur.</div>`;
+      <div class="report-sale"><strong>${escapeHtml(sale.id)} <b>${formatMoney(sale.total)}</b></strong><span>${formatDateTime(new Date(sale.createdAt))} · ${escapeHtml(sale.customerName)} · ${sale.items.length} məhsul növü</span></div>`).join("") : `<div class="empty-state">Seçilmiş dövrdə satış yoxdur.</div>`;
     } catch (error) {
       byId("top-products-chart").innerHTML = `<div class="empty-state">${escapeHtml(error.message)}</div>`;
       byId("report-sales").innerHTML = "";
@@ -814,7 +833,7 @@
       return;
     }
     byId("user-rows").innerHTML = users.map((account) => `
-      <tr><td><div class="table-product"><div class="user-avatar">${escapeHtml(initials(account.name))}</div><strong>${escapeHtml(account.name)}</strong></div></td><td>${escapeHtml(account.email)}</td><td><span class="role-badge role-${escapeHtml(account.role.toLowerCase())}">${roleName(account.role)}</span></td><td>${dateOnly.format(new Date(account.createdAt))}</td><td>${account.role === "CUSTOMER" ? `<button class="small-button" data-edit-customer="${escapeHtml(account.id)}">Müştərini redaktə et</button>` : `<span style="color:#999;font-size:10px">—</span>`}</td></tr>`).join("");
+      <tr><td><div class="table-product"><div class="user-avatar">${escapeHtml(initials(account.name))}</div><strong>${escapeHtml(account.name)}</strong></div></td><td>${escapeHtml(account.email)}</td><td><span class="role-badge role-${escapeHtml(account.role.toLowerCase())}">${roleName(account.role)}</span></td><td>${formatDate(new Date(account.createdAt))}</td><td>${account.role === "CUSTOMER" ? `<button class="small-button" data-edit-customer="${escapeHtml(account.id)}">Müştərini redaktə et</button>` : `<span style="color:#999;font-size:10px">—</span>`}</td></tr>`).join("");
   }
 
   function openCustomerForm(customer) {
