@@ -1,6 +1,6 @@
 # ZalaStore
 
-ZalaStore, Vercel üçün konfiqurasiya edilmiş, geyim mağazası simulyasiyası rolunu oynayan statik JavaScript tətbiqidir. Mağazanın iş məntiqi birbaşa brauzerdə icra olunur; məhsullar, istifadəçi hesabları, səbətlər, anbar ehtiyatları və satış məlumatları brauzerin `localStorage` yaddaşında saxlanılır. Tətbiq heç bir Spring Boot və ya şəbəkə API sorğusu həyata keçirmir.
+ZalaStore, Mağaza məhsullarını stoklarını idarə edə bilmək , satışları izləmək,  hesabat çıxarmaq üçün kodlanmış , geyim mağazası simulyasiyası rolunu oynayan statik JavaScript tətbiqidir. Mağazanın iş məntiqi birbaşa brauzerdə icra olunur; məhsullar, istifadəçi hesabları, səbətlər, anbar ehtiyatları və satış məlumatları brauzerin `localStorage` yaddaşında saxlanılır. Tətbiq heç bir şəbəkə API sorğusu həyata keçirmir.
 
 ## Vercel-də yerləşdirmə (Deploy)
 
@@ -18,7 +18,7 @@ Tətbiq, PBKDF2 parolu heşləməsi (hash) üçün brauzerin "Web Crypto" API-si
 - Müştərilər qeydiyyatdan keçə, profillərini redaktə edə, məhsullara baxa, səbətə məhsul əlavə edə və demo sifarişlər yerləşdirə bilərlər.
 - Adminlər məhsulları və müştəriləri idarə edə, işçi hesabları yarada, satışlara baxa və hesabatları ixrac edə bilərlər. ## JavaScript biznes məntiqi
 
-`store-service.js` əvvəlki Spring xidmət qaydalarını ehtiva edir: validasiya, rol əsaslı səhifə girişi, kataloq axtarışı, stok yoxlamaları və yeniləmələri, hesab/profil əməliyyatları, səbət cəmi, ödəmə, inventar, satış filtri, hesabatlar, ilk beş məhsul sıralaması və CSV ixracı. `app.js` səhifə renderini, naviqasiyanı, brauzer yaddaşını və istifadəçi qarşılıqlı təsirini idarə edir.
+`store-service.js`  validasiya, rol əsaslı səhifə girişi, kataloq axtarışı, stok yoxlamaları və yeniləmələri, hesab/profil əməliyyatları, səbət cəmi, ödəmə, inventar, satış filtri, hesabatlar, ilk beş məhsul sıralaması və CSV ixracı kimi sistemləri təmin edir. `app.js` səhifə renderini, naviqasiyanı, brauzer yaddaşını və istifadəçi qarşılıqlı təsirini idarə edir.
 
 ## Məhdudiyyətlər
 
